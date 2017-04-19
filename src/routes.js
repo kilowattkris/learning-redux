@@ -21,7 +21,7 @@ class Root extends React.Component {
           </Route>
         </Router>
       </Provider>
-    )
+    );
   }
 }
 

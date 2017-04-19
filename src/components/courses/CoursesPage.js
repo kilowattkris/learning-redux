@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import {connect} from 'react-redux';
 import * as courseActions from '../../actions/courseActions';
+import {bindActionCreators} from 'redux';
 
 class CoursesPage extends React.Component {
   constructor (props, context) {
@@ -15,18 +16,20 @@ class CoursesPage extends React.Component {
     this.courseRow = this.courseRow.bind(this);
   }
 
-  onTitleChange (event) {
+  onTitleChange(event) {
     const course = this.state.course;
     course.title = event.target.value;
     this.setState({course: course});
   }
 
-  onClickSave () {
+  onClickSave() {
     // alert(`Saving ${this.state.course.title}`);
-    this.props.dispatch(courseActions.createCourse(this.state.course));
+    // this.props.dispatch(courseActions.createCourse(this.state.course));
+    // this.props.createCourse(this.state.course);
+    this.props.actions.createCourse(this.state.course);
   }
 
-  courseRow (course, index) {
+  courseRow(course, index) {
     return (
       <div key={index}>
         {course.title}
@@ -34,8 +37,7 @@ class CoursesPage extends React.Component {
     );
   }
 
-  render () {
-    debugger;
+  render() {
     return (
       <div>
         <h1>Courses</h1>
@@ -55,17 +57,25 @@ class CoursesPage extends React.Component {
 }
 
 CoursesPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  courses: PropTypes.array.isRequired
+  // dispatch: PropTypes.func.isRequired, //no longer needed now that we added the mapDispatch function
+  courses: PropTypes.array.isRequired,
+  // createCourse: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired
 };
 
-function mapStatesToProps (state, ownProps) {
-  debugger;
+function mapStatesToProps(state, ownProps) {
   return {
     courses: state.courses //courses comes from the reducer
   };
 }
 
-//export default connect(mapStatesToProps, mapDispatchToProps)(CoursesPage);
-export default connect(mapStatesToProps)(CoursesPage); //connect(mapStatesToProps, mapDispatchToProps) returns a function that immediately gets called with the next param
+function mapDispatchToProps(dispatch) {
+  return {
+    //createCourse: course => dispatch(courseActions.createCourse(course)) //can omit parentheses around the param course, because arrow functions don't need them if there's only one param
+    actions: bindActionCreators(courseActions, dispatch)
+  };
+}
+
+export default connect(mapStatesToProps, mapDispatchToProps)(CoursesPage);
+//export default connect(mapStatesToProps)(CoursesPage); //connect(mapStatesToProps, mapDispatchToProps) returns a function that immediately gets called with the next param
 //by ommitting mapDispatchToProps, connect injects a dispatch prop for us (props.dispatch())

@@ -1,5 +1,4 @@
 export default function courseReducer(state = [], action) { //ES6 handles defaults like python
-  debugger;
   switch (action.type) {
     case 'CREATE_COURSE' :
       return [...state,
