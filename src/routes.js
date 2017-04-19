@@ -1,18 +1,15 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Provider} from 'react-redux';
 import {Router, browserHistory, Route, IndexRoute} from 'react-router';
-import configureStore from './store/configureStore';
 import App from './components/App';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import CoursesPage from './components/courses/CoursesPage';
 
-const store = configureStore(); //could pass initialState param, however reducers pass a default
-
 class Root extends React.Component {
   render () {
     return (
-      <Provider store={store}>
+      <Provider store={this.props.store}>
         <Router history={browserHistory}>
           <Route path="/" component={App}>
             <IndexRoute component={HomePage}/>
@@ -23,6 +20,10 @@ class Root extends React.Component {
       </Provider>
     );
   }
+}
+
+Root.propTypes = {
+  store: PropTypes.object.isRequired
 }
 
 export default Root;
