@@ -1,3 +1,43 @@
 a.active{
-  color: red;
+  color: #337ab7;
 }
+
+.header{
+  height: 40px;
+  background-color: rgba(0,0,0,0.4);
+  font-size: 16px;
+  color: white;
+  position: fixed;
+  width: 100%;
+  padding: 0 20px;
+  left: 0;
+  top: 0;
+}
+
+.header > a{
+  color: white;
+  padding: 8px 10px;
+  display: inline-block;
+}
+
+section.main-content{
+  padding-top: 50px;
+}
+
+.main-content h1{
+  text-align: center;
+}
+
+.main-content .jumbotron h1{
+  text-align: left;
+}
+
+.courses input{
+  margin: 0 auto;
+  display: block;
+}
+
+.about p{
+  text-align: center;
+}
+

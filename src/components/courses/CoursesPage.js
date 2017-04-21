@@ -47,13 +47,8 @@ class CoursesPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="courses">
         <h1>Courses</h1>
-        <input
-          type="submit"
-          className="btn btn-primary"
-          onClick={this.redirectToAddCoursePage}
-          value="Add Course" />
         {/*{this.props.courses.map(this.courseRow)}*/}
         <CourseList courses={this.props.courses}/>
         {/*<h2>Add Course</h2>
@@ -65,6 +60,11 @@ class CoursesPage extends React.Component {
           type="submit"
           onClick={this.onClickSave}
           value="Save" />*/}
+        <input
+        type="submit"
+        className="btn btn-primary"
+        onClick={this.redirectToAddCoursePage}
+        value="Add Course" />
       </div>
     );
   }
