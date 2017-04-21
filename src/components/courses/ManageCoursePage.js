@@ -21,6 +21,12 @@ export class ManageCoursePage extends React.Component {
     this.redirectToCoursesPage = this.redirectToCoursesPage.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+    if(this.props.course.id != nextProps.course.id){ //check if it's new data, because this function fires more often than just when props update (can fire when React suspects things are about to change, and randowmly just to make sure things are still good)
+      this.setState({course: Object.assign({}, nextProps.course)}); //needs to be new object
+    }
+  }
+
   redirectToCoursesPage() {
     browserHistory.push('/courses');
   }
@@ -58,10 +64,22 @@ ManageCoursePage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
+function getCourseById(courses, id){
+  const course = courses.filter(course => course.id == id);
+  if(course.length) return course[0]; //filter always returns array
+  return null;
+}
+
 function mapStateToProps(state, ownProps) {
+  console.log(ownProps);
+  console.log(state.courses);
   const courseId = ownProps.params.id; // from the path `/course/:id`
 
   let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
+
+  if(courseId && state.courses.length > 0){
+    course = getCourseById(state.courses, courseId);
+  }
 
   const authorsFormattedForDropdown = state.authors.map(author => {
     return {

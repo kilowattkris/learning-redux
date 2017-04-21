@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
+import {beginAjaxCall} from './ajaxStatusActions';
 
 export function createCourse(course) {
   return { type: types.CREATE_COURSE, course }; //course is equivalent to {course: course} in ES6
@@ -21,6 +22,7 @@ export function updateCourseSuccess(course) {
 
 export function loadCourses() {
   return function(dispatch) { //all thunks have this return function(dispatch setup)
+    dispatch(beginAjaxCall());
     return courseApi.getAllCourses().then(courses => { //gettAllCourses returns a promise
       dispatch(loadCoursesSuccess(courses));
     }).catch(error => {
@@ -31,6 +33,7 @@ export function loadCourses() {
 
 export function saveCourse(course) {
   return function(dispatch, getState) { //getState is used to access the redux store and get pieces of info from it, without having to pass that info in as a param
+    dispatch(beginAjaxCall());
     return courseApi.saveCourse(course).then(savedCourse => { //if an id is passed, we'll either update or create a course
       course.id ? dispatch(updateCourseSuccess(savedCourse)) : dispatch(createCourseSuccess(savedCourse));
     }).catch(error => {
