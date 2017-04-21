@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import {connect} from 'react-redux';
 import * as courseActions from '../../actions/courseActions';
 import {bindActionCreators} from 'redux';
+import {browserHistory} from 'react-router';
+import CourseList from './CourseList';
 
 class CoursesPage extends React.Component {
   constructor (props, context) {
@@ -11,9 +13,11 @@ class CoursesPage extends React.Component {
       course: { title: '' }
     };
 
+    // i need to learn how to explain the following
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
     this.courseRow = this.courseRow.bind(this);
+    this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
   }
 
   onTitleChange(event) {
@@ -22,11 +26,15 @@ class CoursesPage extends React.Component {
     this.setState({course: course});
   }
 
-  onClickSave() {
+  onClickSave(event) {
     // alert(`Saving ${this.state.course.title}`);
     // this.props.dispatch(courseActions.createCourse(this.state.course));
     // this.props.createCourse(this.state.course);
     this.props.actions.createCourse(this.state.course);
+  }
+
+  redirectToAddCoursePage() {
+    browserHistory.push('/course');
   }
 
   courseRow(course, index) {
@@ -42,7 +50,8 @@ class CoursesPage extends React.Component {
       <div>
         <h1>Courses</h1>
         {this.props.courses.map(this.courseRow)}
-        <h2>Add Course</h2>
+        <CourseList courses={this.props.courses}/>
+        {/*<h2>Add Course</h2>
         <input
           type="text"
           onChange={this.onTitleChange}
@@ -50,7 +59,11 @@ class CoursesPage extends React.Component {
         <input
           type="submit"
           onClick={this.onClickSave}
-          value="Save" />
+          value="Save" />*/}
+        <input
+          type="submit"
+          onClick={this.redirectToAddCoursePage}
+          value="Add Course" />
       </div>
     );
   }

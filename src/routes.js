@@ -5,6 +5,7 @@ import App from './components/App';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import CoursesPage from './components/courses/CoursesPage';
+import ManageCoursePage from './components/courses/ManageCoursePage';
 
 class Root extends React.Component {
   render () {
@@ -15,6 +16,8 @@ class Root extends React.Component {
             <IndexRoute component={HomePage}/>
             <Route path="about" component={AboutPage}/>
             <Route path="courses" component={CoursesPage}/>
+            <Route path="course" component={ManageCoursePage}/>
+            <Route path="course/:id" component={ManageCoursePage}/>
           </Route>
         </Router>
       </Provider>
@@ -24,6 +27,6 @@ class Root extends React.Component {
 
 Root.propTypes = {
   store: PropTypes.object.isRequired
-}
+};
 
 export default Root;
