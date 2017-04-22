@@ -46,7 +46,12 @@ export class ManageCoursePage extends React.Component {
     event.preventDefault(); //use so that it doens't do any standard submit button functions
     this.setState({saving: true});
     this.props.actions.saveCourse(this.state.course).then(
-      this.redirectToCoursesPage
+      () => this.redirectToCoursesPage()
+    ).catch(
+      error => {
+        toastr.error(error);
+        this.setState({saving: false});
+      }
     );
   }
 
