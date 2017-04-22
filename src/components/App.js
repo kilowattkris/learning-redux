@@ -3,12 +3,14 @@ import React, {PropTypes} from 'react';
 import Header from './common/Header';
 import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
+import LoadingDots from './common/LoadingDots';
 
 class App extends React.Component{
   render () {
     return (
       <div className="container-fluid">
         <Header loading={this.props.loading} />
+        {this.props.loading && <LoadingDots className="loader" interval={100} dots={5} />}
         <section className="main-content">
           {this.props.children}
         </section>

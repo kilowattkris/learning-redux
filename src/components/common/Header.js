@@ -1,16 +1,13 @@
 import React, {PropTypes} from 'react';
 import {Link, IndexLink} from 'react-router';
-import LoadingDots from './LoadingDots';
 
+//used to pass loading props cause loader was used here... but now i moved it out
 const Header = ({loading}) => {
   return (
     <nav className="header">
       <IndexLink to="/" activeClassName="active">Home</IndexLink>
-      {" | "}
       <Link to="/about" activeClassName="active">About</Link>
-      {" | "}
       <Link to="/courses" activeClassName="active">Courses</Link>
-      {loading && <LoadingDots interval={100} dots={5} />}
     </nav>
   );
 };

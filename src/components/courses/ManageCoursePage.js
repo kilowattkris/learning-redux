@@ -5,7 +5,7 @@ import * as courseActions from '../../actions/courseActions';
 import {browserHistory} from 'react-router';
 import CourseForm from './CourseForm';
 // import {authorsFormattedForDropdown} from '../../selectors/selectors';
-// import toastr from 'toastr';
+import toastr from 'toastr';
 
 export class ManageCoursePage extends React.Component {
   constructor(props, context) {
@@ -13,7 +13,8 @@ export class ManageCoursePage extends React.Component {
 
     this.state = {
       course: Object.assign({}, this.props.course),
-      errors: {}
+      errors: {},
+      saving: false
     };
 
     this.updateCourseState = this.updateCourseState.bind(this);
@@ -28,6 +29,8 @@ export class ManageCoursePage extends React.Component {
   }
 
   redirectToCoursesPage() {
+    this.setState({saving: false});
+    toastr.success("Course Saved!");
     browserHistory.push('/courses');
   }
 
@@ -41,8 +44,10 @@ export class ManageCoursePage extends React.Component {
 
   saveCourse(event) {
     event.preventDefault(); //use so that it doens't do any standard submit button functions
-    this.props.actions.saveCourse(this.state.course);
-    this.redirectToCoursesPage();
+    this.setState({saving: true});
+    this.props.actions.saveCourse(this.state.course).then(
+      this.redirectToCoursesPage
+    );
   }
 
   render() {
@@ -53,6 +58,7 @@ export class ManageCoursePage extends React.Component {
         onSave={this.saveCourse}
         course={this.state.course}
         errors={this.state.errors}
+        saving={this.state.saving}
         className="manage-courses"
       />
     );
