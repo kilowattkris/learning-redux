@@ -20,7 +20,7 @@ export default function courseReducer(state = initialState.courses, action) { //
 
       case types.UPDATE_COURSE_SUCCESS:
         return [
-          ...state.filer(course => course.id !== action.course.id),
+          ...state.filter(course => course.id !== action.course.id),
           Object.assign({}, action.course)
         ]; //need to use spread to create an immutible copy
 
