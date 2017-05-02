@@ -21,7 +21,7 @@ export default {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
       template: 'src/index.ejs',
       minify: {
@@ -39,7 +39,7 @@ export default {
           includePaths: [path.resolve(__dirname, 'src', 'scss')]
         },
         context: '/',
-        postcss: () => [autoprefixer],
+        postcss: () => [autoprefixer]
       }
     })
   ],
