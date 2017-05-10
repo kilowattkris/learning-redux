@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import {browserHistory} from 'react-router';
 import CourseForm from './CourseForm';
-// import {authorsFormattedForDropdown} from '../../selectors/selectors';
+import {authorsFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
 
 export class ManageCoursePage extends React.Component {
