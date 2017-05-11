@@ -40,7 +40,7 @@ describe('Async Actions', () => {
       const store_actions = store.getActions();
       expect(store_actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
       expect(store_actions[1].type).toEqual(types.LOAD_AUTHORS_SUCCESS);
-      done();
     });
+    done();
   });
 })
