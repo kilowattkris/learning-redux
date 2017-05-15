@@ -10,7 +10,7 @@ const GLOBALS = {
 
 export default {
   devtool: 'source-map',
-  entry: path.resolve(__dirname, 'src/index'),
+  entry: path.resolve(__dirname, 'src/index.js'),
   target: 'web',
   output: {
     path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
@@ -25,7 +25,7 @@ export default {
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles .css'),
     new HtmlWebpackPlugin({
-      template: 'src/index.ejs',
+      template: 'src/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
